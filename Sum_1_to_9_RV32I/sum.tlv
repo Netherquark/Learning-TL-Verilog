@@ -65,6 +65,20 @@
    
    //end of imem code
    
+   //---------------DEC code------------------
+   
+   //instr logic
+   
+   $imm[31:0] = $is_i_instr ? {  {21{$instr[31]}}, $instr[30:25], $instr[24:21], $instr[20] } :
+                $is_s_instr ? {  {21{$instr[31]}}, $instr[30:25], $instr[11:8], $instr[7] } :
+                $is_b_instr ? {  {19{$instr[31]}}, {3{$instr[7]}}, $instr[30:25], $instr[11:8], 1'b0 } :
+                $is_u_instr ? {  {2{$instr[31]}}, $instr[30:20], $instr[19:12], $instr[11:8], 12'b0 } :
+                $is_j_instr ? {  {10{$instr[31]}}, $instr[19:12], {2{$instr[20]}}, $instr[30:25], $instr[24:21], 1'b0 } :
+                32'b0;
+   
+   //end of dec code
+   
+   
    //----------------end----------------------
    
    // Assert these to end simulation (before Makerchip cycle limit).
